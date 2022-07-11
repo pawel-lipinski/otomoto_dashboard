@@ -277,6 +277,9 @@ otomoto_model = st.selectbox("Wybierz model samochodu aby zobaczyc skad pochodza
 
 df_map = df_map[(df_map.brand==otomoto_brand) & (df_map.model==otomoto_model)]
 
+df_model_data = df_map
+df_model_data.sort_values(["year"], inplace=True)
+
 df_map = df_map[['lon', 'lat']].copy()
 
 st.pydeck_chart(pdk.Deck(
@@ -319,3 +322,26 @@ st.pydeck_chart(pdk.Deck(
 
 
 
+chart_col1, chart_col2 = st.columns(2)
+
+with chart_col1:
+    st.markdown("Histogram - przebieg w km - dla wybranego modelu")
+    chart21 = px.histogram(data_frame=df_model_data, labels={"przebieg", "przebieg"}, marginal="box", x="mileage", nbins=60, width=800, height=500)
+    chart21.update_layout(xaxis_title="Przebieg w km",  plot_bgcolor='#2d3035', paper_bgcolor='#2d3035',title_font=dict(size=25, color='#a5a7ab', family="Muli, sans-serif"),
+                        font=dict(color='#8a8d93'),
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+    chart21.update_traces(marker_color='rgb(171,220,245)', marker_line_color='rgb(8,48,107)',
+                  marker_line_width=1.5, opacity=0.8)
+    st.write(chart21)
+    
+with chart_col2:
+    st.markdown("Histogram - rok produkcji - dla wybranego modelu")
+    chart22 = px.histogram(data_frame=df_model_data, x="year",marginal="box", nbins=30, width=800, height=500, color_discrete_sequence=["darkblue"])
+    chart22.update_layout(xaxis_title='Rok produkcji',  plot_bgcolor='#2d3035', paper_bgcolor='#2d3035',title_font=dict(size=25, color='#a5a7ab', family="Muli, sans-serif"),
+                        font=dict(color='#8a8d93'),
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+    chart22.update_traces(marker_color='rgb(171,220,245)', marker_line_color='rgb(8,48,107)',
+                  marker_line_width=1.5, opacity=0.8)
+    st.write(chart22)
+    
+    
