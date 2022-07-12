@@ -39,15 +39,21 @@ df.sort_values(["brand","model"], inplace=True)
 
 
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 otomoto_brand = col1.selectbox("Wybierz model do wyświetlenia:", pd.unique(df["brand"]))
 
 
-otomoto_condition = col2.selectbox("Wybierz stan samochodu:", pd.unique(df["condition"]))
+otomoto_condition = col3.selectbox("Wybierz stan samochodu:", pd.unique(df["condition"]))
+
+
 
 df = df[(df.brand==otomoto_brand) & (df.condition==otomoto_condition)]
 
+
+otomoto_model = col2.selectbox("Wybierz model:", pd.unique(df["model"]))
+
+df = df[(df.brand==otomoto_brand) & (df.condition==otomoto_condition) & (df.model==otomoto_model)]
 
 chart_col1, chart_col2 = st.columns(2)
 
@@ -64,7 +70,7 @@ with chart_col1:
     
     
 with chart_col2:
-    st.markdown("Heatmapa: cena vs moc")
+    st.markdown("Heatmapa: moc vs cena")
     chart2 = px.density_heatmap(
         data_frame=df, y="price", x="power", width=800, height=500, template="seaborn"
     )
@@ -84,9 +90,9 @@ with chart_col1:
     st.write(chart3)
 
 with chart_col2:
-    st.markdown("Heatmapa: przebieg vs cena")
+    st.markdown("Heatmapa: cena vs przebieg")
     chart4 = px.scatter(
-        data_frame=df, y="mileage", x="price", width=800, height=500, color="model", size="power", size_max=15, template="ggplot2"
+        data_frame=df, y="mileage", x="price", width=800, height=500, color="model", size="power", size_max=10, template="ggplot2"
     )
     chart4.update_layout(xaxis_title='Przebieg w km',
                   yaxis_title='Cena')
@@ -273,7 +279,6 @@ df_map.sort_values(by="model", inplace=True)
 
 df_map = df_map[(df_map.brand==otomoto_brand)]
 
-otomoto_model = st.selectbox("Wybierz model samochodu aby zobaczyc skad pochodza ogloszenia sprzedazy:", pd.unique(df_map["model"]))
 
 df_map = df_map[(df_map.brand==otomoto_brand) & (df_map.model==otomoto_model)]
 
@@ -282,6 +287,7 @@ df_model_data.sort_values(["year"], inplace=True)
 
 df_map = df_map[['lon', 'lat']].copy()
 
+st.markdown("Rozkład ogłoszeń wg miejsca")
 st.pydeck_chart(pdk.Deck(
      map_style='mapbox://styles/mapbox/light-v10',
      initial_view_state=pdk.ViewState(
@@ -322,26 +328,5 @@ st.pydeck_chart(pdk.Deck(
 
 
 
-chart_col1, chart_col2 = st.columns(2)
 
-with chart_col1:
-    st.markdown("Histogram - przebieg w km - dla wybranego modelu")
-    chart21 = px.histogram(data_frame=df_model_data, labels={"przebieg", "przebieg"}, marginal="box", x="mileage", nbins=60, width=800, height=500)
-    chart21.update_layout(xaxis_title="Przebieg w km",  plot_bgcolor='#2d3035', paper_bgcolor='#2d3035',title_font=dict(size=25, color='#a5a7ab', family="Muli, sans-serif"),
-                        font=dict(color='#8a8d93'),
-                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
-    chart21.update_traces(marker_color='rgb(171,220,245)', marker_line_color='rgb(8,48,107)',
-                  marker_line_width=1.5, opacity=0.8)
-    st.write(chart21)
-    
-with chart_col2:
-    st.markdown("Histogram - rok produkcji - dla wybranego modelu")
-    chart22 = px.histogram(data_frame=df_model_data, x="year",marginal="box", nbins=30, width=800, height=500, color_discrete_sequence=["darkblue"])
-    chart22.update_layout(xaxis_title='Rok produkcji',  plot_bgcolor='#2d3035', paper_bgcolor='#2d3035',title_font=dict(size=25, color='#a5a7ab', family="Muli, sans-serif"),
-                        font=dict(color='#8a8d93'),
-                        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
-    chart22.update_traces(marker_color='rgb(171,220,245)', marker_line_color='rgb(8,48,107)',
-                  marker_line_width=1.5, opacity=0.8)
-    st.write(chart22)
-    
-    
+
