@@ -70,12 +70,12 @@ with chart_col1:
     
     
 with chart_col2:
-    st.markdown("Heatmapa: moc vs cena")
+    st.markdown("Heatmapa: cena vs moc")
     chart2 = px.density_heatmap(
         data_frame=df, y="price", x="power", width=800, height=500, template="seaborn"
     )
-    chart2.update_layout(xaxis_title='Cena',
-                  yaxis_title='Moc')
+    chart2.update_layout(xaxis_title='Moc',
+                  yaxis_title='Cena')
     st.write(chart2)
     
 with chart_col1:
