@@ -92,10 +92,10 @@ with chart_col1:
 with chart_col2:
     st.markdown("Heatmapa: cena vs przebieg")
     chart4 = px.scatter(
-        data_frame=df, y="mileage", x="price", width=800, height=500, color="model", size="power", size_max=10, template="ggplot2"
+        data_frame=df, y="price", x="mileage", width=800, height=500, color="model", size="power", size_max=10, template="ggplot2"
     )
     chart4.update_layout(xaxis_title='Przebieg w km',
-                  yaxis_title='Cena')
+                  yaxis_title='Cena PLN')
     st.write(chart4)
  
 
