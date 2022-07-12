@@ -78,16 +78,16 @@ with chart_col2:
                   yaxis_title='Moc')
     st.write(chart2)
     
-    
 with chart_col1:
-    st.markdown("Histogram - model")
-    chart3 = px.histogram(data_frame=df, x="model", color="fuel", width=800, height=500, color_discrete_sequence=['#DB6574', '#03DAC5', '#0384da', '#a5a7ab', '#d870db', '#dbcf70'])
-    chart3.update_layout(xaxis_title="Model",  plot_bgcolor='#2d3035', paper_bgcolor='#2d3035',title_font=dict(size=25, color='#a5a7ab', family="Muli, sans-serif"),
+    st.markdown("Histogram - cena")
+    chart5 = px.histogram(data_frame=df, x="price",marginal="box", nbins=30, width=800, height=500, color_discrete_sequence=["darkblue"])
+    chart5.update_layout(xaxis_title='Cena PLN',  plot_bgcolor='#2d3035', paper_bgcolor='#2d3035',title_font=dict(size=25, color='#a5a7ab', family="Muli, sans-serif"),
                         font=dict(color='#8a8d93'),
                         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
-    chart3.update_traces(marker_line_color='rgb(8,48,107)',
+    chart5.update_traces(marker_color='rgb(171,220,245)', marker_line_color='rgb(8,48,107)',
                   marker_line_width=1.5, opacity=0.8)
-    st.write(chart3)
+    st.write(chart5)    
+
 
 with chart_col2:
     st.markdown("Heatmapa: cena vs przebieg")
@@ -109,6 +109,8 @@ with chart_col2:
     chart5.update_traces(marker_color='rgb(171,220,245)', marker_line_color='rgb(8,48,107)',
                   marker_line_width=1.5, opacity=0.8)
     st.write(chart5)
+
+
 
 with chart_col1:
     st.markdown("Histogram - moc")
