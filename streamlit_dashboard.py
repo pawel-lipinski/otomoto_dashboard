@@ -10,20 +10,20 @@ import pandas as pd  # read csv, df manipulation
 import plotly.express as px  # interactive charts
 import streamlit as st  # 🎈 data web app development
 import pydeck as pdk # interactive data visualization
-
+import os;
 
 st.set_page_config(
-    page_title="Otomoto.pl dashboard",
+    page_title="Otomoto.pl dashboard - prepared by Pawel Lipinski",
     layout="wide")
 
 
 
-
+print(os.getcwd()) 
 #fields=['lon','lat']
 
-@st.experimental_memo
+@st.cache_data
 def get_data() -> pd.DataFrame:
-    return pd.read_csv("otomoto_plain_data.csv")
+    return pd.read_csv("otomoto_plain_data.csv", low_memory=False)
 
 df=get_data()
 

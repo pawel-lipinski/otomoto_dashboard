@@ -1,0 +1,33 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', '-t',
+      'europe-central2-docker.pkg.dev/data-scraper-446316/cloud-run-source-deploy/otomoto-dashboard:$COMMIT_SHA',
+      '.'
+    ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'europe-central2-docker.pkg.dev/data-scraper-446316/cloud-run-source-deploy/otomoto-dashboard:$COMMIT_SHA'
+    ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'otomoto-dashboard'
+      - '--image'
+      - 'europe-central2-docker.pkg.dev/data-scraper-446316/cloud-run-source-deploy/otomoto-dashboard:$COMMIT_SHA'
+      - '--region'
+      - 'europe-central2'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--timeout=300s'
+      - '--quiet'
+
+serviceAccount: "data-scraper-446316@appspot.gserviceaccount.com"
+options:
+  logging: CLOUD_LOGGING_ONLY
