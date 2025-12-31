@@ -349,7 +349,7 @@ with chart_col2:
     
     st.write(chart15)
 
-    
+
 with chart_col1:
     
     chart16 = px.histogram(data_frame=df, x="seats", text_auto=True,nbins=60, width=800, height=500, color_discrete_sequence=["darkblue"], title="Histogram - Number of Seats")
