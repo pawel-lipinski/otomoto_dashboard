@@ -458,11 +458,13 @@ df_map = df_map[['lon', 'lat']]
 st.markdown("Distribution of Listings by Location")
 st.pydeck_chart(pdk.Deck(
      map_style='mapbox://styles/mapbox/light-v10',
+     api_keys={
+        "mapbox": "pk.eyJ1IjoicGF3ZWxsaXBpbnNraSIsImEiOiJjbDU4bHp6ZTIwMWgwM2tqemRod3U4dGowIn0.QvUNJOqSfgwjs2E3P4O6Wg"
+     },
      initial_view_state=pdk.ViewState(
          latitude=52.25,
          longitude=21.0,
          zoom=6,
-         api_keys="pk.eyJ1IjoicGF3ZWxsaXBpbnNraSIsImEiOiJjbDU4bHp6ZTIwMWgwM2tqemRod3U4dGowIn0.QvUNJOqSfgwjs2E3P4O6Wg",
          pitch=10,
          
      ),
