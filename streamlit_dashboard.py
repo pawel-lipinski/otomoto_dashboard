@@ -41,7 +41,7 @@ col1, col2, col3 = st.columns(3)
 
 # --- 1. BRAND SELECTION ---
 # Create list with "All" at the start
-brand_options = ["All"] + sorted(pd.unique(df["brand"]).astype(str).tolist())
+brand_options = ["Audi"] + sorted(pd.unique(df["brand"]).astype(str).tolist())
 otomoto_brand = col1.selectbox("Select Brand to Display:", brand_options)
 
 # Filter dataframe immediately so the Model dropdown only shows relevant models

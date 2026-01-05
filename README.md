@@ -25,7 +25,7 @@ The dashboard is built using a modern Python stack:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/your-username/otomoto-dashboard.git](https://github.com/your-username/otomoto-dashboard.git)
+    git clone https://github.com/pawel-lipinski/otomoto_dashboard.git
     cd otomoto-dashboard
     ```
 
